@@ -1,0 +1,21 @@
+{
+  "name": "orbye-backend-v2",
+  "version": "1.0.0",
+  "description": "This is v2 of oreby backend project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "keywords": [
+    "\u001b[A\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C",
+    "\u0016"
+  ],
+  "author": "Taufik islam",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^5.6.0",
+    "nodemon": "^2.0.22"
+  }
+}
