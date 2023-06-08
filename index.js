@@ -7,8 +7,10 @@ const DatabaseConnection = require('./Configaration/DatabaseConnect');
 const routes = require('./Routes');
 
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended:true}))
+app.use(routes);
 DatabaseConnection();
-app.use(routes)
 console.log(process.env.BASE_URL)
 
 app.listen(process.env.PORT || 5000, ()=> {

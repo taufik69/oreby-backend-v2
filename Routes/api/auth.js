@@ -1,10 +1,20 @@
 const express = require('express');
 const _ = express.Router();
 
-_.get('/demo', async (req,res)=> {
-    res.status(200).json({
-        message:"This api routes work finely"
-    })
+_.post('/registration', async (req,res)=> {
+    try {
+        const {fullName , email, password} = req.body;
+        res.status(200).json({
+            data:{
+                fullName , email, password
+            }
+        })    
+    } catch (error) {
+        res.status(404).json({
+            message:"Registration Route not working                  "
+        })    
+    }
+    
 })
 
 
