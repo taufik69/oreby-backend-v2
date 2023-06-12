@@ -1,5 +1,6 @@
  const {userNameValidate}  = require('../helpers/userNameHelpers');
  const {emailvalidator} = require('../helpers/emailValidator');
+ const {passwordValidation} = require('../helpers/passwordValidaton')
  const registration = async (req, res) => {
     
         try {
@@ -27,11 +28,18 @@
                 return res.status(404).json({
                     error:" Password Missing"
                 })
-            }else{
+            }else if(!passwordValidation(password)){
+                return res.status(404).json({
+                    error:" Minimum eight characters, at least one letter, one number and one special character"
+                })
+            }
+            else{
                 res.status(200).json({
                 
                     data:{
-                        fullName , email, password
+                        fullName ,
+                         email,
+                          password
                     }
                 })    
             }
@@ -39,7 +47,7 @@
             
         } catch (error) {
             res.status(404).json({
-                message:"Registration Route not working  "
+                error:`from registration route ${error}`
             })    
         }
         
