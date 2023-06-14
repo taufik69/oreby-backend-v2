@@ -1,4 +1,4 @@
-const mongoose  = require('mongoose ');
+const mongoose  = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
@@ -34,6 +34,13 @@ const userSchema = new Schema({
         default:"member",
         enum:["member", "admin","merchant"],
     },
+    
+    facebookId:{
+        type:String,
+    },
+    linkedinId:{
+        type:String,
+    },
     updated:{
         type:Date,
     },
@@ -41,12 +48,6 @@ const userSchema = new Schema({
         type:Date,
         default:Date.now,
     },
-    facebookId:{
-        type:String,
-    },
-    linkedinId:{
-        type:String,
-    }
 
 })
 
