@@ -5,6 +5,7 @@ const user = require("../Models/userModel");
 const bcrypt = require("bcrypt");
 const { SendNodeMail } = require("../helpers/EmailSender.js");
 const { OtpTemplate } = require("../helpers/OtpTemplate.js");
+const aleaRNGFactory = require("number-generator/lib/aleaRNGFactory");
 
 const registration = async (req, res) => {
   try {
@@ -58,9 +59,33 @@ const registration = async (req, res) => {
         }).save();
 
         // After completely store data in database
-        SendNodeMail(email, "246", OtpTemplate);
+
+        // make a random number
+
+        const generator1 = aleaRNGFactory(Date.now());
+        let OPT = generator1.uInt32().toString().substring(0, 4);
+
+        // SET The otp in the database and return this field and use this filed in otp
+        let storeOTP = await user.findOneAndUpdate(
+          { email },
+          { $set: { randomOTp: OPT } },
+          { new: true }
+        );
+
+        // Make a functionality deleted after 4 minutes
+        // setTimeout(async () => {
+        //   await user.findOneAndUpdate(
+        //     { email },
+        //     { $unset: { randomOTp: "" } },
+        //     { new: true }
+        //   );
+        //   console.log("deleted");
+        // }, 10000);
+
+        SendNodeMail(email, storeOTP.randomOTp, OtpTemplate);
         res.status(200).json({
           data: {
+            storeOTP: storeOTP.randomOTp,
             sucess: "Please check your email for OTP",
             message: "Succesfully registration",
           },

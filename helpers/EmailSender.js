@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-exports.SendNodeMail = async (email, otp, template) => {
+exports.SendNodeMail = async (email, OTP, template) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -14,6 +14,6 @@ exports.SendNodeMail = async (email, otp, template) => {
     to: email,
     subject: "Oreby E-commerce",
     // text: "Hello world?",
-    html: template(otp),
+    html: template(OTP),
   });
 };
