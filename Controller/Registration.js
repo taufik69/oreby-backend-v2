@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const { SendNodeMail } = require("../helpers/EmailSender.js");
 const { OtpTemplate } = require("../helpers/OtpTemplate.js");
 const aleaRNGFactory = require("number-generator/lib/aleaRNGFactory");
+const nodemailer = require("nodemailer");
 
 const registration = async (req, res) => {
   try {
@@ -82,7 +83,28 @@ const registration = async (req, res) => {
         //   console.log("deleted");
         // }, 10000);
 
-        SendNodeMail(email, storeOTP.randomOTp, OtpTemplate);
+        // SendNodeMail(email, storeOTP.randomOTp, OtpTemplate);
+        // ========================================================
+        // Sending email by node mailer
+        // ===========================================================
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.HOST_MAIL,
+            pass: process.env.APP_PASSWORD,
+          },
+        });
+
+        const info = await transporter.sendMail({
+          from: "taufikislam172@gmail.com",
+          to: email,
+          subject: "Oreby E-commerce",
+          // text: "Hello world?",
+          html: OtpTemplate(OPT),
+        });
+        // ========================================================
+        // Sending email by node mailer
+        // ===========================================================
         res.status(200).json({
           data: {
             storeOTP: storeOTP.randomOTp,
