@@ -1,14 +1,11 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const CatagoriesSchema = new Schema({
+const subCatagoriesSchema = new Schema({
   name: {
     type: String,
-    trim: true,
     required: true,
-  },
-  description: {
-    type: String,
+    trim: true,
   },
   image: {
     type: String,
@@ -17,15 +14,14 @@ const CatagoriesSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  subCatagoris: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "subCatagoris",
-    },
-  ],
+  catagories: {
+    type: Schema.Types.ObjectId,
+    ref: "catagories",
+    require: true,
+  },
   status: {
     type: String,
-    emum: ["waiting", "rejected", "approved"],
+    enum: ["waiting", "rejected", "approve"],
     default: "waiting",
   },
   updated: {
@@ -33,8 +29,8 @@ const CatagoriesSchema = new Schema({
   },
   created: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
 });
 
-module.exports = mongoose.model("catagories", CatagoriesSchema);
+module.exports = mongoose.model("subCatagoris", subCatagoriesSchema);
