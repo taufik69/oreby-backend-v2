@@ -23,6 +23,11 @@ const storeSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "user",
   },
+  status: {
+    type: String,
+    enum: ["waiting", "rejected", "Approved"],
+    default: "waiting",
+  },
   product: [
     {
       type: Schema.Types.ObjectId,
